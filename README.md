@@ -32,3 +32,37 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Conventional Commits
+
+This repository uses `commitlint`
+
+All commits should be written in imperative mode and must follow this pattern:
+
+```
+  !type(?scope): !subject
+  <?body>
+  <?footer>
+```
+
+_test:_ indicates any type of test code creation or change.
+
+_feat:_ indicates the development of a new feature to the project.
+
+_refactor:_ used when there is a refactoring of code that has no impact on the system's logic/business rules.
+
+_style:_ used when there are code formatting and style changes that do not alter the system in any way.
+
+_fix:_ used when there is a correction of errors that are generating bugs in the system.
+
+_chore:_ indicates changes to the project that do not affect the system or test files. These are developmental changes.
+
+_docs:_ used when there are changes to the project documentation.
+
+_build:_ used to indicate changes that affect the project's build process or external dependencies.
+
+_perf:_ indicates a change that improved system performance.
+
+_ci:_ used for changes to CI configuration files.
+
+_revert:_ indicates the reversal of a previous commit.
