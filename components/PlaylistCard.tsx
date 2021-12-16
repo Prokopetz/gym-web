@@ -6,7 +6,7 @@ interface PlaylistCardProps {
 
 export const PlaylistCard = ({ name }: PlaylistCardProps) => {
   return (
-    <div className="h-14 flex items-center lg:justify-center lg:flex-col lg:h-40 lg:w-36 select-none bg-warmGray-800 cursor-pointer rounded-md text-white whitespace-nowrap">
+    <div className="h-14 flex items-center lg:justify-center lg:flex-col lg:h-40 lg:w-36 select-none bg-warmGray-800 cursor-pointer rounded-sm text-white whitespace-nowrap">
       <span className="p-4 font-bold font-mono lg:flex-1 lg:flex lg:justify-center lg:items-center">
         {name.substring(0, 3)}
       </span>
