@@ -29,7 +29,7 @@ const Home: NextPage = () => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-2 gap-y-4 gap-x-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <div className="w-full grid grid-cols-2 gap-y-2 gap-x-[calc(100%_-_20rem)] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {days.map((day, index) => {
             return <PlaylistCard key={index} name={day}></PlaylistCard>;
           })}
