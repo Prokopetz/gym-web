@@ -11,6 +11,9 @@ module.exports = {
       ...colors
     },
     extend: {
+      borderRadius: {
+        "": "0.25rem"
+      }
     },
   },
   plugins: [],
