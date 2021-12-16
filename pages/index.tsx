@@ -3,6 +3,14 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
+const getTitleForCurrentTime = () => {
+  const hours = new Date().getHours();
+  if (hours < 12) return "Good Morning";
+  else if (hours < 17) return "Good Afternoon";
+  else if (hours < 21) return "Good Evening";
+  else return "Good Night";
+};
+
 const Home: NextPage = () => {
 	return (
     <div className="px-4 bg-dark">
@@ -12,7 +20,12 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className={styles.main}>
+      <main className="flex flex-1 flex-col items-center justify-center">
+        <div className="w-full flex justify-start mb-4 mt-10">
+          <h1 className="text-xl font-bold text-white">
+            {getTitleForCurrentTime()}
+          </h1>
+        </div>
 				<h1 className={styles.title}>
 					Welcome to <a href="https://nextjs.org">Next.js!</a>
 				</h1>
