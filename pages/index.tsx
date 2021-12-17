@@ -1,10 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { PlaylistCard } from "../components/PlaylistCard";
+import { PlaylistTile } from "../components/PlaylistTile";
 import styles from "../styles/Home.module.css";
 
-const days = ["Monday", "Tuesday", "Wednesday", "Thrusday", "Friday"];
+const days = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thrusday",
+  "Friday",
+  "Texto beem grande que eu fiz bem grande",
+];
 const getTitleForCurrentTime = () => {
   const hours = new Date().getHours();
   if (hours < 12) return "Good Morning";
@@ -29,9 +36,9 @@ const Home: NextPage = () => {
           </h1>
         </div>
 
-        <div className="w-full grid grid-cols-2 gap-y-2 gap-x-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        <div className="w-full grid grid-cols-2 gap-y-2 gap-x-2 sm:grid-cols-3 lg:grid-cols-4">
           {days.map((day, index) => {
-            return <PlaylistCard key={index} name={day}></PlaylistCard>;
+            return <PlaylistTile key={index} name={day}></PlaylistTile>;
           })}
         </div>
         <h1 className={styles.title}>
