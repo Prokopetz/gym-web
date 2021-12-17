@@ -10,7 +10,7 @@ const days = [
   "Wednesday",
   "Thrusday",
   "Friday",
-  "Texto beem grande que eu fiz bem grande",
+  "Nova Velha Bossa Nova",
 ];
 const getTitleForCurrentTime = () => {
   const hours = new Date().getHours();
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
           </h1>
         </div>
 
-        <div className="w-full grid grid-cols-2 gap-y-2 gap-x-2 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="w-full grid grid-cols-2 gap-y-2 gap-x-2 sm:grid-cols-3 xl:grid-cols-4">
           {days.map((day, index) => {
             return <PlaylistTile key={index} name={day}></PlaylistTile>;
           })}
