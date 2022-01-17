@@ -1,13 +1,20 @@
+import { useRouter } from "next/router";
 import React from "react";
 
-interface PlaylistTileProps {
+export interface PlaylistTileProps {
   name: string;
+  id: string;
 }
 
-export const PlaylistTile = ({ name }: PlaylistTileProps) => {
+const PlaylistTile = ({ name, id }: PlaylistTileProps) => {
+  const router = useRouter();
+
   return (
-    <div className="group h-12 flex items-center select-none bg-warmGray-800 cursor-pointer rounded text-white lg:h-20 hover:opacity-80 hover:bg-warmGray-700 hover:duration-300">
-      <span className="p-4 lg:p-6 font-bold font-mono">
+    <div
+      className="group h-12 flex items-center select-none bg-warmGray-800 cursor-pointer rounded text-white lg:h-20 hover:opacity-80 hover:bg-warmGray-700 hover:duration-300"
+      onClick={() => router.push(`/playlist/${id}`)}
+    >
+      <span className="p-4 lg:p-6 font-bold font-mono text-klaus">
         {name.substring(0, 3)}
       </span>
       <span className="w-0.5 h-full bg-black bg-opacity-20"></span>
@@ -20,3 +27,5 @@ export const PlaylistTile = ({ name }: PlaylistTileProps) => {
     </div>
   );
 };
+
+export default PlaylistTile;

@@ -1,17 +1,20 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { PlaylistTile } from "../components/PlaylistTile";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import PlaylistTile, { PlaylistTileProps } from "../components/PlaylistTile";
 import styles from "../styles/Home.module.css";
 
-const days = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thrusday",
-  "Friday",
-  "Nova Velha Bossa Nova",
+const playlists: Array<PlaylistTileProps> = [
+  { id: "AdjfcXaKKDXAsfnI", name: "Monday" },
+  { id: "KKaAsunFFMADISUn", name: "My Training" },
+  { id: "ASDAVAklquddSDFF", name: "Lets GOO" },
+  { id: "NJVKDIqsdfifamsf", name: "Leg day" },
+  { id: "UUDsdfiaSVVAXSFg", name: "Chest Day" },
+  { id: "ASDFkjfuasnvmXIA", name: "Back Day" },
 ];
+
 const getTitleForCurrentTime = () => {
   const hours = new Date().getHours();
   if (hours < 12) return "Good Morning";
@@ -21,6 +24,8 @@ const getTitleForCurrentTime = () => {
 };
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
   return (
     <div className="px-4 bg-dark">
       <Head>
@@ -37,10 +42,11 @@ const Home: NextPage = () => {
         </div>
 
         <div className="w-full grid grid-cols-2 gap-y-2 gap-x-2 sm:grid-cols-3 xl:grid-cols-4">
-          {days.map((day, index) => {
-            return <PlaylistTile key={index} name={day}></PlaylistTile>;
+          {playlists.map((playlistProp, index) => {
+            return <PlaylistTile key={index} {...playlistProp}></PlaylistTile>;
           })}
         </div>
+        <button>abacate</button>
       </main>
 
       <footer className={styles.footer}>
