@@ -1,18 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import PlaylistTile, { PlaylistTileProps } from "../components/PlaylistTile";
 import styles from "../styles/Home.module.css";
 
 const playlists: Array<PlaylistTileProps> = [
-  { id: "AdjfcXaKKDXAsfnI", name: "Monday" },
-  { id: "KKaAsunFFMADISUn", name: "My Training" },
-  { id: "ASDAVAklquddSDFF", name: "Lets GOO" },
-  { id: "NJVKDIqsdfifamsf", name: "Leg day" },
-  { id: "UUDsdfiaSVVAXSFg", name: "Chest Day" },
-  { id: "ASDFkjfuasnvmXIA", name: "Back Day" },
+  { id: "AdjfcXaKKDXAsfnI", icon: "💪", name: "Monday" },
+  { id: "KKaAsunFFMADISUn", icon: "🦵", name: "My Training" },
+  { id: "ASDAVAklquddSDFF", icon: "🏋", name: "Lets GOO" },
+  { id: "NJVKDIqsdfifamsf", icon: "🏋", name: "Leg day" },
+  { id: "UUDsdfiaSVVAXSFg", icon: "🏋", name: "Chest Day" },
+  { id: "ASDFkjfuasnvmXIA", icon: "🏋", name: "Back Day" },
 ];
 
 const getTitleForCurrentTime = () => {
