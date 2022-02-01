@@ -21,7 +21,7 @@ interface PlaylistServerSideProps {
 const Playlist = ({ playlist }: PlaylistServerSideProps) => {
   const { ref, inView, entry } = useInView({
     initialInView: true,
-    threshold: 0.5,
+    threshold: 0.8,
   });
 
   const router = useRouter();
