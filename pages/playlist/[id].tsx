@@ -22,6 +22,8 @@ const Playlist = ({ playlist }: PlaylistServerSideProps) => {
   const { ref, inView, entry } = useInView({
     initialInView: true,
     threshold: 0.8,
+    delay: 0,
+    root: null,
   });
 
   const router = useRouter();
