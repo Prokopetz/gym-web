@@ -36,14 +36,14 @@ const Playlist = ({ playlist }: PlaylistServerSideProps) => {
 
       <div
         ref={ref}
-        className="p-10 text-white w-full flex items-center bg-gradient-to-b from-blue-700 via-[#192ea9] to-dark z-10 text-3xl font-bold text-whitetransition-all duration-300"
+        className="p-10 w-full flex items-center bg-gradient-to-b from-blue-700 via-[#192ea9] to-dark z-10 text-3xl font-bold text-white transition-all"
       >
-        <h1 className="transition-all duration-300 p-6">{playlist.name}</h1>
+        <h1 className="transition-all p-6">{playlist.name}</h1>
       </div>
 
       <div
         className={clsx(
-          "p-4 w-full flex items-center bg-[#192ea9] justify-start text-lg font-bold transition-all duration-300 z-10 fixed top-0 text-white space-x-4",
+          "p-4 w-full flex items-center bg-[#192ea9] justify-start text-lg font-bold transition-all z-10 fixed top-0 text-white space-x-4",
           inView ? "bg-opacity-0" : "bg-opacity-100"
         )}
       >
@@ -51,9 +51,7 @@ const Playlist = ({ playlist }: PlaylistServerSideProps) => {
           className="w-8 h-8 p-1 rounded-full bg-black bg-opacity-70 cursor-pointer hover:opacity-50 transition-opacity"
           onClick={() => router.back()}
         />
-        <h1
-          className={clsx("duration-300", inView ? "opacity-0" : "opacity-100")}
-        >
+        <h1 className={clsx(inView ? "opacity-0" : "opacity-100")}>
           {playlist.name}
         </h1>
       </div>
