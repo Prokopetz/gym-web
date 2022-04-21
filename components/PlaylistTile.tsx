@@ -12,7 +12,7 @@ const PlaylistTile = ({ id, name, icon }: PlaylistTileProps) => {
 
   return (
     <div
-      className="group h-12 flex items-center select-none bg-warmGray-800 cursor-pointer rounded text-white lg:h-20 hover:opacity-80 hover:bg-warmGray-700 hover:duration-300"
+      className="group h-12 flex items-center select-none bg-card cursor-pointer rounded text-white lg:h-20 hover:bg-opacity-60 hover:bg-warmGray-700 duration-300"
       onClick={() => router.push(`/playlist/${id}`)}
     >
       <span className="p-4 lg:p-6 font-bold text-xl lg:text-2xl">{icon}</span>
@@ -22,7 +22,7 @@ const PlaylistTile = ({ id, name, icon }: PlaylistTileProps) => {
           {name}
         </span>
       </div>
-      <span className="mr-6 hidden lg:block opacity-0 group-hover:opacity-100 hover:duration-300">{`>`}</span>
+      <span className="mr-6 hidden lg:block opacity-0 group-hover:opacity-100 duration-300">{`>`}</span>
     </div>
   );
 };

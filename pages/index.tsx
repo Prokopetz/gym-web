@@ -1,9 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import { useRouter } from "next/router";
 import PlaylistTile, { PlaylistTileProps } from "../components/PlaylistTile";
-import styles from "../styles/Home.module.css";
 
 const playlists: Array<PlaylistTileProps> = [
   { id: "AdjfcXaKKDXAsfnI", icon: "💪", name: "Monday" },
@@ -23,10 +20,8 @@ const getTitleForCurrentTime = () => {
 };
 
 const Home: NextPage = () => {
-  const router = useRouter();
-
   return (
-    <div className="px-4 bg-dark">
+    <div className="p-4 bg-dark h-screen">
       <Head>
         <title>Your Gym Friend</title>
         <meta
@@ -36,8 +31,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex h-full flex-col items-center justify-center">
-        <div className="w-full flex justify-start mb-4 mt-10">
+      <main className="flex h-full flex-col items-center">
+        <div className="w-full flex justify-start mb-4 mt-4">
           <h1 className="text-xl font-bold text-white">
             {getTitleForCurrentTime()}
           </h1>
@@ -48,20 +43,13 @@ const Home: NextPage = () => {
             return <PlaylistTile key={index} {...playlistProp}></PlaylistTile>;
           })}
         </div>
-        <button>abacate</button>
-      </main>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+        <div className="mt-8 mb-4 w-full ">
+          <button className="bg-card w-full h-12 rounded text-white font-bold hover:opacity-80 hover:bg-warmGray-700 lg:h-20 duration-300">
+            Create new Training
+          </button>
+        </div>
+      </main>
     </div>
   );
 };

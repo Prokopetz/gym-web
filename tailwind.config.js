@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors')
+const colors = require("tailwindcss/colors");
 
 module.exports = {
   content: [
@@ -7,16 +7,19 @@ module.exports = {
   ],
   theme: {
     colors: {
-      dark: "#121212",
-      ...colors
+      dark: "#202020",
+      gradientEnd: "#6366f1",
+      card: "#272727",
+      ...colors,
     },
     extend: {
+      border: {
+        "": "1px",
+      },
       borderRadius: {
-        "": "0.25rem"
-      }
+        "": "0.25rem",
+      },
     },
   },
-  plugins: [
-    require('@tailwindcss/line-clamp'),
-  ],
+  plugins: [require("@tailwindcss/line-clamp")],
 };
