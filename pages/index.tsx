@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Page from "../components/Page";
 import PlaylistTile, { PlaylistTileProps } from "../components/PlaylistTile";
 
 const playlists: Array<PlaylistTileProps> = [
@@ -21,7 +22,7 @@ const getTitleForCurrentTime = () => {
 
 const Home: NextPage = () => {
   return (
-    <div className="p-4 bg-dark h-screen">
+    <Page>
       <Head>
         <title>Your Gym Friend</title>
         <meta
@@ -31,13 +32,12 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex h-full flex-col items-center">
-        <div className="w-full flex justify-start mb-4 mt-4">
-          <h1 className="text-xl font-bold text-white">
-            {getTitleForCurrentTime()}
-          </h1>
-        </div>
-
+      <Page.Header className="w-full flex justify-start  p-4 p-4">
+        <h1 className="text-xl font-bold text-white">
+          {getTitleForCurrentTime()}
+        </h1>
+      </Page.Header>
+      <Page.Body className="flex h-full flex-col items-center">
         <div className="w-full grid grid-cols-2 gap-y-2 gap-x-2 sm:grid-cols-3 xl:grid-cols-4">
           {playlists.map((playlistProp, index) => {
             return <PlaylistTile key={index} {...playlistProp}></PlaylistTile>;
@@ -49,8 +49,8 @@ const Home: NextPage = () => {
             Create new Training
           </button>
         </div>
-      </main>
-    </div>
+      </Page.Body>
+    </Page>
   );
 };
 
