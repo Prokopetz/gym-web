@@ -17,7 +17,7 @@ const variants = {
 
 const Header = ({ children, className, animate = false }: PageProps) => {
   return (
-    <motion.main
+    <motion.div
       className={className}
       variants={variants}
       initial={clsx({ "hidden": animate })}
@@ -25,7 +25,7 @@ const Header = ({ children, className, animate = false }: PageProps) => {
       transition={{ type: "linear" }}
     >
       {children}
-    </motion.main>
+    </motion.div>
   );
 };
 

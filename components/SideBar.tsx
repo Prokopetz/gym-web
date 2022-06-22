@@ -1,9 +1,12 @@
 import { HomeIcon } from "@heroicons/react/solid";
 import { useDrag } from "@use-gesture/react";
 import React, { useState } from "react";
+import resolveConfig from 'tailwindcss/resolveConfig'
+import tailwindConfig from '../tailwind.config.js'
 
 const SideBar = () => {
-  const [sideBarWidth, setSideBarWidth] = useState(300);
+  const fullConfig = resolveConfig(tailwindConfig);
+  const [sideBarWidth, setSideBarWidth] = useState<number>(fullConfig.theme.width[64]);
 
   const bind = useDrag(({ xy: [x] }) => {
     const windowSize = window.innerWidth;
@@ -14,13 +17,13 @@ const SideBar = () => {
 
   return (
     <>
-      <div>
+      <div className="opacity-0 w-0 lg:opacity-100 lg:w-fit lg:opacitiy-100">
         <div
           className="relative bg-black h-full shadow-lg"
-          style={{ width: sideBarWidth }}
+          style={{ width: sideBarWidth  }}
         >
           <label
-            className="absolute left-full h-full w-[2px] cursor-col-resize transition-all hover:bg-gray-500/30"
+            className="absolute z-20 left-full h-full w-[2px] cursor-col-resize transition-all hover:bg-gray-500/30"
             {...bind()}
           />
           <div className="p-4 flex flex-col space-y-4">
@@ -47,6 +50,12 @@ const SideBar = () => {
               </div>
             </div>
             <div className="h-[2px] w-full bg-gray-500/30"></div>
+            <button
+              className="mt-8 mb-4 bg-card w-full h-12 rounded text-white font-bold hover:opacity-80 hover:bg-warmGray-700 lg:h-20 duration-300"
+              
+            >
+              Create new Training
+            </button>
           </div>
         </div>
       </div>
