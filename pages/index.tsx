@@ -1,9 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useState } from "react";
 import Page from "../components/Page";
 import PlaylistTile, { PlaylistTileProps } from "../components/PlaylistTile";
+import SideBar from "../components/SideBar";
 
-const playlists: Array<PlaylistTileProps> = [
+const playlistsInitial: Array<PlaylistTileProps> = [
   { id: "AdjfcXaKKDXAsfnI", icon: "💪", name: "Monday" },
   { id: "KKaAsunFFMADISUn", icon: "🦵", name: "My Training" },
   { id: "ASDAVAklquddSDFF", icon: "🏋", name: "Lets GOO" },
@@ -21,6 +23,8 @@ const getTitleForCurrentTime = () => {
 };
 
 const Home: NextPage = () => {
+  const [playlists, setPlaylists] = useState(playlistsInitial);
+
   return (
     <Page>
       <Head>
@@ -31,23 +35,38 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Page.Header className="w-full flex justify-start  p-4 p-4">
+      <Page.Header className="w-full flex justify-start p-4 lg:hidden">
         <h1 className="text-xl font-bold text-white">
           {getTitleForCurrentTime()}
         </h1>
       </Page.Header>
       <Page.Body className="flex h-full flex-col items-center">
-        <div className="w-full grid grid-cols-2 gap-y-2 gap-x-2 sm:grid-cols-3 xl:grid-cols-4">
-          {playlists.map((playlistProp, index) => {
-            return <PlaylistTile key={index} {...playlistProp}></PlaylistTile>;
-          })}
-        </div>
+        <div className="w-full flex h-full">
+          <div className="w-full">
+            <div className="w-full grid gap-y-2 gap-x-2 grid-cols-2 xl:grid-cols-4">
+              {playlists.map((playlistProp, index) => {
+                return (
+                  <PlaylistTile key={index} {...playlistProp}></PlaylistTile>
+                );
+              })}
+            </div>
 
-        <div className="mt-8 mb-4 w-full ">
-          <button className="bg-card w-full h-12 rounded text-white font-bold hover:opacity-80 hover:bg-warmGray-700 lg:h-20 duration-300">
-            Create new Training
-          </button>
+            <button
+              className="mt-8 mb-4 lg:hidden bg-card w-full h-12 rounded text-white font-bold hover:opacity-80 hover:bg-warmGray-700 lg:h-20 duration-300"
+              onClick={() =>
+                setPlaylists([
+                  ...playlists,
+                  {
+                    id: "AdjfcXxDDDSSQQsfnI",
+                    icon: "💪",
+                    name: "New training",
+                  },
+                ])
+              }
+            >
+              Create new Training
+            </button>
+          </div>
         </div>
       </Page.Body>
     </Page>

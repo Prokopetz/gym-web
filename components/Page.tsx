@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
+import SideBar from "./SideBar";
 
 export interface PageProps {
   children: ReactElement | ReactElement[];
@@ -9,7 +10,7 @@ export interface PageProps {
 }
 
 const variants = {
-  hidden: { opacity: 0, x: -30, y: 0 },
+  hidden: { opacity: 0, x: 0, y: 0 },
   enter: { opacity: 1, x: 0, y: 0 },
   exit: { x: -30 },
 };
@@ -44,8 +45,9 @@ const Body = ({ children, className }: PageProps) => {
 
 const Page = ({ children }: PageProps) => {
   return (
-    <div className="bg-dark h-screen text-white">
-      <div className="">{children}</div>
+    <div className="flex bg-dark h-screen text-white">
+      <SideBar></SideBar>
+      <div className="w-full">{children}</div>
     </div>
   );
 };
