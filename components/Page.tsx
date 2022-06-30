@@ -1,7 +1,9 @@
-import { ReactElement } from "react";
+import { ReactElement, useContext } from "react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import SideBar from "./SideBar";
+import { PlaylistContext } from "../context/PlaylistContext";
+import { PlusCircleIcon, UserAddIcon } from "@heroicons/react/solid";
 
 export interface PageProps {
   children: ReactElement | ReactElement[];
@@ -20,7 +22,7 @@ const Header = ({ children, className, animate = false }: PageProps) => {
     <motion.div
       className={className}
       variants={variants}
-      initial={clsx({ "hidden": animate })}
+      initial={clsx({ hidden: animate })}
       animate="animate"
       transition={{ type: "linear" }}
     >
@@ -44,14 +46,26 @@ const Body = ({ children, className }: PageProps) => {
 };
 
 const Page = ({ children }: PageProps) => {
+  const { playlists, addPlaylist } = useContext(PlaylistContext);
+
   return (
-    <div className="flex bg-dark h-screen text-white">
-      <SideBar></SideBar>
+    <div className="flex bg-dark h-screen">
+      <SideBar>
+        <SideBar.Section>
+          <SideBar.Item icon={<PlusCircleIcon/>} title="Create training" onClick={addPlaylist}/>
+        </SideBar.Section>
+        <SideBar.Divider/>
+        <SideBar.Section>
+          {playlists.map((playlist) => {
+            return <SideBar.Item key={playlist.id} title={playlist.name} />;
+          })}
+        </SideBar.Section>
+      </SideBar>
       <div className="w-full">{children}</div>
     </div>
   );
 };
 
 Page.Body = Body;
-Page.Header = Header
+Page.Header = Header;
 export default Page;
