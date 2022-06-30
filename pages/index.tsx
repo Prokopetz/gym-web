@@ -1,18 +1,12 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
+import dynamic from "next/dynamic";
 import Head from "next/head";
-import { useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useRef } from "react";
 import Page from "../components/Page";
-import PlaylistTile, { PlaylistTileProps } from "../components/PlaylistTile";
-import SideBar from "../components/SideBar";
-
-const playlistsInitial: Array<PlaylistTileProps> = [
-  { id: "AdjfcXaKKDXAsfnI", icon: "💪", name: "Monday" },
-  { id: "KKaAsunFFMADISUn", icon: "🦵", name: "My Training" },
-  { id: "ASDAVAklquddSDFF", icon: "🏋", name: "Lets GOO" },
-  { id: "NJVKDIqsdfifamsf", icon: "🏋", name: "Leg day" },
-  { id: "UUDsdfiaSVVAXSFg", icon: "🏋", name: "Chest Day" },
-  { id: "ASDFkjfuasnvmXIA", icon: "🏋", name: "Back Day" },
-];
+import PlaylistTile from "../components/PlaylistTile";
+import { PlaylistContext } from "../context/PlaylistContext";
+import getPrismaClient from "../prisma/getPrismaClient";
+const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
 const getTitleForCurrentTime = () => {
   const hours = new Date().getHours();
@@ -22,9 +16,16 @@ const getTitleForCurrentTime = () => {
   else return "Good Night";
 };
 
-const Home: NextPage = () => {
-  const [playlists, setPlaylists] = useState(playlistsInitial);
 
+
+const Home: NextPage = ({playlistsFromDB}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { playlists, addPlaylist, setAllPlaylists } = useContext(PlaylistContext);
+  
+  useEffect(() => {
+    console.log(playlistsFromDB)
+    setAllPlaylists(playlistsFromDB);
+  }, [])
+ 
   return (
     <Page>
       <Head>
@@ -43,26 +44,20 @@ const Home: NextPage = () => {
       <Page.Body className="flex h-full flex-col items-center">
         <div className="w-full flex h-full">
           <div className="w-full">
-            <div className="w-full grid gap-y-2 gap-x-2 grid-cols-2 xl:grid-cols-4">
-              {playlists.map((playlistProp, index) => {
+            <div className="w-full grid gap-y-2 gap-x-2 grid-cols-2 xl:grid-cols-4 text-white">
+              {playlists.map((playlistProp) => {
                 return (
-                  <PlaylistTile key={index} {...playlistProp}></PlaylistTile>
+                  <PlaylistTile key={playlistProp.id} {...playlistProp}></PlaylistTile>
                 );
               })}
             </div>
-
+            <div>
+              <Picker native disableAutoFocus onEmojiClick={(event, data) => console.log(data.emoji)}/>
+            </div>
+              
             <button
               className="mt-8 mb-4 lg:hidden bg-card w-full h-12 rounded text-white font-bold hover:opacity-80 hover:bg-warmGray-700 lg:h-20 duration-300"
-              onClick={() =>
-                setPlaylists([
-                  ...playlists,
-                  {
-                    id: "AdjfcXxDDDSSQQsfnI",
-                    icon: "💪",
-                    name: "New training",
-                  },
-                ])
-              }
+              onClick={() => addPlaylist()}
             >
               Create new Training
             </button>
@@ -72,5 +67,15 @@ const Home: NextPage = () => {
     </Page>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const prisma = getPrismaClient();
+  const playlists = await prisma.playlist.findMany({include: { exercises: true  }})
+  return {
+    props: {
+      playlistsFromDB: playlists
+    }
+  }
+}
 
 export default Home;

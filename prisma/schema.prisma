@@ -12,7 +12,7 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-model PlaylistItem {
+model Exercise {
   id         String   @id @default(uuid())
   name       String
   sets       Int
@@ -22,8 +22,8 @@ model PlaylistItem {
 }
 
 model Playlist {
-  id    String         @id @default(uuid())
-  name  String
-  icon  String
-  items PlaylistItem[]
+  id        String     @id @default(uuid())
+  name      String
+  icon      String
+  exercises Exercise[]
 }
