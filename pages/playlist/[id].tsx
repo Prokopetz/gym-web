@@ -37,7 +37,7 @@ const Playlist = () => {
 
   useEffect(() => {
     setPlaylist(playlists.find((playlist) => playlist.id === router.query.id));
-  }, [])
+  }, [playlists])
 
   return (
     <Page>
