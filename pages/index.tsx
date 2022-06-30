@@ -18,7 +18,7 @@ const getTitleForCurrentTime = () => {
 
 
 
-const Home: NextPage = ({playlistsFromDB}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Home: NextPage = () => {
   const { playlists, addPlaylist } = useContext(PlaylistContext);
   
   return (
