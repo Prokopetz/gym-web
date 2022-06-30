@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { createContext, ReactElement, useState } from "react";
+import React, { createContext, ReactElement, useEffect, useState } from "react";
 import { Playlist } from "../types/Playlist";
 
 export interface Exercise {
@@ -26,7 +26,6 @@ const playlistsInitial: Array<Playlist> = [
 export const PlaylistContext = createContext({
   playlists: playlistsInitial,
   addPlaylist: () => {},
-  setAllPlaylists: (playlists: Playlist[]) => {}
 });
 
 const PlaylistContextProvider = ({ children }: { children: ReactElement }) => {
@@ -40,15 +39,24 @@ const PlaylistContextProvider = ({ children }: { children: ReactElement }) => {
     }
   };
 
-  const setAllPlaylists = (playlists: Playlist[]) => {
-    setPlaylists(playlists);
+
+  const setAllPlaylists = async () => {
+    const response = await axios.get("/api/getAllPlaylists").catch((error: AxiosError) => console.log(error.toJSON()));
+    const playlists: Playlist[] = response?.data;
+    if (playlists) {
+      setPlaylists(playlists);
+    }
   }
-  
+
+  useEffect(() => {
+    setAllPlaylists();
+  }, []);
+
   return (
-    <PlaylistContext.Provider value={{ playlists, addPlaylist, setAllPlaylists }}>
+    <PlaylistContext.Provider value={{ playlists, addPlaylist }}>
       {children}
     </PlaylistContext.Provider>
   );
 };
 
-export default PlaylistContextProvider;
+export default React.memo(PlaylistContextProvider);

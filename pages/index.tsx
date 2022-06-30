@@ -19,13 +19,8 @@ const getTitleForCurrentTime = () => {
 
 
 const Home: NextPage = ({playlistsFromDB}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { playlists, addPlaylist, setAllPlaylists } = useContext(PlaylistContext);
+  const { playlists, addPlaylist } = useContext(PlaylistContext);
   
-  useEffect(() => {
-    console.log(playlistsFromDB)
-    setAllPlaylists(playlistsFromDB);
-  }, [])
- 
   return (
     <Page>
       <Head>
