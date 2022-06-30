@@ -26,6 +26,7 @@ const playlistsInitial: Array<Playlist> = [
 export const PlaylistContext = createContext({
   playlists: playlistsInitial,
   addPlaylist: () => {},
+  setAllPlaylists: (playlists: Playlist[]) => {}
 });
 
 const PlaylistContextProvider = ({ children }: { children: ReactElement }) => {
@@ -39,18 +40,12 @@ const PlaylistContextProvider = ({ children }: { children: ReactElement }) => {
     }
   };
 
-  const setAllPlaylists = async () => {
-    const response = await axios.get("/api/getAllPlaylists").catch((error: AxiosError) => console.log(error.toJSON()));
-    const playlists: Playlist[] = response?.data;
-    if (playlists) {
-      setPlaylists(playlists);
-    }
+  const setAllPlaylists = (playlists: Playlist[]) => {
+    setPlaylists(playlists);
   }
-
-  setAllPlaylists();
-
+  
   return (
-    <PlaylistContext.Provider value={{ playlists, addPlaylist }}>
+    <PlaylistContext.Provider value={{ playlists, addPlaylist, setAllPlaylists }}>
       {children}
     </PlaylistContext.Provider>
   );

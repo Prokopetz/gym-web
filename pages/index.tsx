@@ -18,8 +18,13 @@ const getTitleForCurrentTime = () => {
 
 
 
-const Home: NextPage = () => {
-  const { playlists, addPlaylist } = useContext(PlaylistContext);
+const Home: NextPage = ({playlistsFromDB}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { playlists, addPlaylist, setAllPlaylists } = useContext(PlaylistContext);
+  
+  useEffect(() => {
+    console.log(playlistsFromDB)
+    setAllPlaylists(playlistsFromDB);
+  }, [])
  
   return (
     <Page>
@@ -62,5 +67,15 @@ const Home: NextPage = () => {
     </Page>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const prisma = getPrismaClient();
+  const playlists = await prisma.playlist.findMany({include: { exercises: true  }})
+  return {
+    props: {
+      playlistsFromDB: playlists
+    }
+  }
+}
 
 export default Home;
