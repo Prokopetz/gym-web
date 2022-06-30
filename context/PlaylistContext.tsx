@@ -8,28 +8,13 @@ export interface Exercise {
   reps: number;
 }
 
-const playlistsInitial: Array<Playlist> = [
-  {
-    id: "AdjfcXaKKDXAsfnI",
-    icon: "💪",
-    name: "Monday",
-    exercises: []
-  },
-  {
-    id: "KdnfamqYYdSvvasd",
-    icon: "💪",
-    name: "Thuesday",
-    exercises: []
-  },
-];
-
 export const PlaylistContext = createContext({
-  playlists: playlistsInitial,
+  playlists: [] as Playlist[],
   addPlaylist: () => {},
 });
 
 const PlaylistContextProvider = ({ children }: { children: ReactElement }) => {
-  const [playlists, setPlaylists] = useState(playlistsInitial);
+  const [playlists, setPlaylists] = useState<Playlist[]>([]);
   
   const addPlaylist = async () => {
     const response = await axios.get("/api/createPlaylist").catch((error: AxiosError) => console.log(error.toJSON()));
