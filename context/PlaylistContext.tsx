@@ -6,7 +6,8 @@ import { Playlist } from "../types/Playlist";
 export const PlaylistContext = createContext({
   playlists: [] as Playlist[],
   addPlaylist: () => {},
-  addExercise: (exercise: Exercise) => {}
+  addExercise: (exercise: Exercise) => {},
+  editPlaylist: (id: string, name: string, icon: string) => {}
 });
 
 const PlaylistContextProvider = ({ children }: { children: ReactElement }) => {
@@ -19,7 +20,6 @@ const PlaylistContextProvider = ({ children }: { children: ReactElement }) => {
       setPlaylists([...playlists, playlist]);
     }
   };
-
 
   const setAllPlaylists = async () => {
     const response = await axios.get("/api/getAllPlaylists").catch((error: AxiosError) => console.log(error.toJSON()));
@@ -34,12 +34,17 @@ const PlaylistContextProvider = ({ children }: { children: ReactElement }) => {
     await setAllPlaylists();
   }
 
+  const editPlaylist = async (id: string, name: string, icon: string) => {
+    await axios.post("/api/editPlaylist", {id, name, icon}).catch((error: AxiosError) => console.log(error.toJSON()));
+    await setAllPlaylists();
+  }
+
   useEffect(() => {
     setAllPlaylists();
   }, []);
 
   return (
-    <PlaylistContext.Provider value={{ playlists, addPlaylist, addExercise }}>
+    <PlaylistContext.Provider value={{ playlists, addPlaylist, addExercise, editPlaylist }}>
       {children}
     </PlaylistContext.Provider>
   );

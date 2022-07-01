@@ -6,7 +6,6 @@ import Page from "../components/Page";
 import PlaylistTile from "../components/PlaylistTile";
 import { PlaylistContext } from "../context/PlaylistContext";
 import getPrismaClient from "../prisma/getPrismaClient";
-const Picker = dynamic(() => import('emoji-picker-react'), { ssr: false });
 
 const getTitleForCurrentTime = () => {
   const hours = new Date().getHours();
@@ -46,10 +45,6 @@ const Home: NextPage = () => {
                 );
               })}
             </div>
-            <div>
-              <Picker native disableAutoFocus onEmojiClick={(event, data) => console.log(data.emoji)}/>
-            </div>
-              
             <button
               className="mt-8 mb-4 lg:hidden bg-card w-full h-12 rounded text-white font-bold hover:opacity-80 hover:bg-warmGray-700 lg:h-20 duration-300"
               onClick={() => addPlaylist()}

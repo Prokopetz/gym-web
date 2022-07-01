@@ -8,6 +8,8 @@ import { ChevronLeftIcon } from "@heroicons/react/solid";
 import Page from "../../components/Page";
 import { PlaylistContext } from "../../context/PlaylistContext";
 import { Playlist } from "../../types/Playlist";
+import dynamic from "next/dynamic";
+const Picker = dynamic(() => import("emoji-picker-react"), { ssr: false });
 
 interface Exercise {
   id: string;
@@ -20,14 +22,21 @@ interface Exercise {
 const Playlist = () => {
   const router = useRouter();
   const [playlist, setPlaylist] = useState<Playlist>();
+  const [playlistName, setPlaylistName] = useState<string>("");
+  const [isEditIcon, setIsEditIcon] = useState(false);
+  const [isEditTitle, setIsEditTitle] = useState(false);
   const { ref, inView, entry } = useInView({
     initialInView: true,
     threshold: 0.8,
   });
-  const { playlists, addExercise } = useContext(PlaylistContext);
+  const { playlists, addExercise, editPlaylist } = useContext(PlaylistContext);
 
   useEffect(() => {
-    setPlaylist(playlists.find((playlist) => playlist.id === router.query.id));
+    const playlist = playlists.find(
+      (playlist) => playlist.id === router.query.id
+    );
+    setPlaylist(playlist);
+    setPlaylistName(playlist?.name || "");
   }, [playlists]);
 
   return (
@@ -43,8 +52,50 @@ const Playlist = () => {
           className="p-10 w-full flex items-center bg-gradient-to-b from-blue-700 via-[#192ea9] to-dark z-10 text-3xl font-bold text-white transition-all"
         >
           <div className="transition-all p-6 space-x-2 flex">
-            <span>{playlist?.icon} </span>
-            <h1 className="">{playlist?.name}</h1>
+            <div
+              className="flex flex-col relative"
+              onMouseLeave={() => setIsEditIcon(false)}
+            >
+              <span
+                className={clsx({ "border-b-2": isEditIcon })}
+                onClick={() => setIsEditIcon(!isEditIcon)}
+              >
+                {playlist?.icon}
+              </span>
+              <div
+                className={clsx(
+                  "absolute top-[105%] left-0 z-20",
+                  isEditIcon ? "block" : "hidden"
+                )}
+              >
+                <Picker
+                  native
+                  disableAutoFocus
+                  onEmojiClick={(event, data) => {
+                    editPlaylist(playlist?.id!, playlist?.name!, data.emoji);
+                    setIsEditIcon(false);
+                  }}
+                />
+              </div>
+            </div>
+            <h1 className={clsx(isEditTitle ? "hidden" : "block")} onClick={() => setIsEditTitle(true)}>
+              {playlist?.name}
+            </h1>
+            <input
+              className={clsx("bg-transparent border-b-2 outline-none", isEditTitle ? "block" : "hidden")}
+              value={playlistName}
+              onChange={(event) => setPlaylistName(event.target.value)}
+              onKeyDown={async (event) => {
+                if (event.key === "Enter") {
+                  await editPlaylist(
+                    playlist?.id!,
+                    playlistName,
+                    playlist?.icon!
+                  );
+                  setIsEditTitle(false);
+                }
+              }}
+            ></input>
           </div>
         </div>
 

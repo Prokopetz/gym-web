@@ -7,7 +7,7 @@ export default async function handler(
   res: NextApiResponse<Playlist>
 ) {
   const prisma = getPrismaClient();
-  const playlist = JSON.parse(req.body) as Playlist;
+  const playlist = req.body as Playlist;
   const updatedPlaylist = await prisma.playlist.update({
     data: {name: playlist.name, icon: playlist.icon},
     where: { id: playlist.id },
