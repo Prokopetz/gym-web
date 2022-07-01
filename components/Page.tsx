@@ -51,7 +51,7 @@ const Page = ({ children }: PageProps) => {
   const router = useRouter();
 
   return (
-    <div className="flex bg-dark h-screen">
+    <div className="flex bg-dark min-h-screen h-full">
       <SideBar>
         <SideBar.Section>
         <SideBar.Item
