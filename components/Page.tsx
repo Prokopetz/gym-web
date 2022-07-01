@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import clsx from "clsx";
 import SideBar from "./SideBar";
 import { PlaylistContext } from "../context/PlaylistContext";
-import { PlusCircleIcon, UserAddIcon } from "@heroicons/react/solid";
+import { HomeIcon, PlusCircleIcon, UserAddIcon } from "@heroicons/react/solid";
+import { useRouter } from "next/router";
 
 export interface PageProps {
   children: ReactElement | ReactElement[];
@@ -47,17 +48,33 @@ const Body = ({ children, className }: PageProps) => {
 
 const Page = ({ children }: PageProps) => {
   const { playlists, addPlaylist } = useContext(PlaylistContext);
+  const router = useRouter();
 
   return (
     <div className="flex bg-dark h-screen">
       <SideBar>
         <SideBar.Section>
-          <SideBar.Item icon={<PlusCircleIcon/>} title="Create training" onClick={addPlaylist}/>
+        <SideBar.Item
+            icon={<HomeIcon />}
+            title="Home"
+            onClick={() => router.push(`/`)}
+          />
+          <SideBar.Item
+            icon={<PlusCircleIcon />}
+            title="Create training"
+            onClick={addPlaylist}
+          />
         </SideBar.Section>
-        <SideBar.Divider/>
+        <SideBar.Divider />
         <SideBar.Section>
           {playlists.map((playlist) => {
-            return <SideBar.Item key={playlist.id} title={playlist.name} />;
+            return (
+              <SideBar.Item
+                key={playlist.id}
+                title={playlist.name}
+                onClick={() => router.push(`/playlist/${playlist.id}`)}
+              />
+            );
           })}
         </SideBar.Section>
       </SideBar>
