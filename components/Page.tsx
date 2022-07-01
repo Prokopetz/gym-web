@@ -72,6 +72,7 @@ const Page = ({ children }: PageProps) => {
               <SideBar.Item
                 key={playlist.id}
                 title={playlist.name}
+                icon={playlist.icon}
                 onClick={() => router.push(`/playlist/${playlist.id}`)}
               />
             );

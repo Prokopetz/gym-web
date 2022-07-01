@@ -37,7 +37,7 @@ const Playlist = () => {
     );
     setPlaylist(playlist);
     setPlaylistName(playlist?.name || "");
-  }, [playlists]);
+  }, [playlists, router.query.id]);
 
   return (
     <Page>
@@ -107,7 +107,7 @@ const Playlist = () => {
         >
           <ChevronLeftIcon
             className="w-8 h-8 p-1 rounded-full bg-black bg-opacity-70 cursor-pointer hover:opacity-50 transition-opacity"
-            onClick={() => router.back()}
+            onClick={() => router.push(`/`)}
           />
           <h1 className={clsx(inView ? "opacity-0" : "opacity-100")}>
             {playlist?.name}

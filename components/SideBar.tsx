@@ -14,7 +14,7 @@ const Item = ({
   className
 }: {
   title: string;
-  icon?: React.ComponentProps<"svg">;
+  icon?: React.ComponentProps<"svg"> | string;
   onClick?: Function;
   className?: string
 }) => {
