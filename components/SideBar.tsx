@@ -39,9 +39,7 @@ const Section = ({ children }: { children: ReactElement | ReactElement[] | JSX.E
   );
 };
 
-const SideBar = ({ children }: {children: ReactElement | ReactElement[] }) => {
-  const { playlists, addPlaylist } = useContext(PlaylistContext);
-  
+const SideBar = ({ children }: {children: ReactElement | ReactElement[] }) => {  
   const [sideBarWidth, setSideBarWidth] = useState<number>();
 
   const bind = useDrag(({ xy: [x] }) => {

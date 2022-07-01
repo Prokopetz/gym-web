@@ -1,16 +1,12 @@
 import axios, { AxiosError } from "axios";
 import React, { createContext, ReactElement, useEffect, useState } from "react";
+import { Exercise } from "../types/Exercise";
 import { Playlist } from "../types/Playlist";
-
-export interface Exercise {
-  name: string;
-  sets: number;
-  reps: number;
-}
 
 export const PlaylistContext = createContext({
   playlists: [] as Playlist[],
   addPlaylist: () => {},
+  addExercise: (exercise: Exercise) => {}
 });
 
 const PlaylistContextProvider = ({ children }: { children: ReactElement }) => {
@@ -33,12 +29,17 @@ const PlaylistContextProvider = ({ children }: { children: ReactElement }) => {
     }
   }
 
+  const addExercise = async (exercise: Exercise) => {
+    await axios.post("/api/addExercise", exercise).catch((error: AxiosError) => console.log(error.toJSON()));
+    await setAllPlaylists();
+  }
+
   useEffect(() => {
     setAllPlaylists();
   }, []);
 
   return (
-    <PlaylistContext.Provider value={{ playlists, addPlaylist }}>
+    <PlaylistContext.Provider value={{ playlists, addPlaylist, addExercise }}>
       {children}
     </PlaylistContext.Provider>
   );

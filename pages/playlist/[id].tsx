@@ -17,15 +17,6 @@ interface Exercise {
   name: string;
 }
 
-interface PlaylistServerSideProps {
-  playlist: Object & {
-    id: string;
-    name: string;
-    exercises: Exercise[];
-    icon: string;
-  };
-}
-
 const Playlist = () => {
   const router = useRouter();
   const [playlist, setPlaylist] = useState<Playlist>();
@@ -33,11 +24,11 @@ const Playlist = () => {
     initialInView: true,
     threshold: 0.8,
   });
-  const { playlists } = useContext(PlaylistContext);
+  const { playlists, addExercise } = useContext(PlaylistContext);
 
   useEffect(() => {
     setPlaylist(playlists.find((playlist) => playlist.id === router.query.id));
-  }, [playlists])
+  }, [playlists]);
 
   return (
     <Page>
@@ -80,20 +71,39 @@ const Playlist = () => {
         <span className="text-center">Reps</span>
       </div>
       <Page.Body>
-        <div className="grid grid-cols-[1fr_8fr_2fr_2fr_2fr] gap-y-6">
+        <div className="flex flex-col items-center justify-center w-full gap-y-6 text-white">
           {playlist?.exercises.map((exercise, index) => {
             return (
-              <>
+              <div
+                className="grid grid-cols-[1fr_8fr_2fr_2fr_2fr] w-full"
+                key={exercise.id}
+              >
                 <span className="self-center">{index + 1}</span>
                 <span className="self-center">{exercise.name}</span>
-                <span className="self-center text-center">{exercise.reps}</span>
+                <span className="self-center text-center">
+                  {exercise.weight} kg
+                </span>
                 <span className="self-center text-center">{exercise.sets}</span>
                 <span className="self-center  text-center">
                   {exercise.reps}
                 </span>
-              </>
+              </div>
             );
           })}
+          <button
+            className="mt-8 bg-card w-72 p-6 rounded text-white font-bold hover:opacity-80 hover:bg-warmGray-700 duration-300"
+            onClick={() =>
+              addExercise({
+                name: "Exercise",
+                reps: 10,
+                sets: 4,
+                weight: 5,
+                playlistId: "37759a01-ae86-4292-96fd-c0259628d581",
+              })
+            }
+          >
+            Add exercise
+          </button>
         </div>
       </Page.Body>
 

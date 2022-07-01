@@ -17,6 +17,7 @@ model Exercise {
   name       String
   sets       Int
   reps       Int
+  weight     Int
   playlist   Playlist @relation(fields: [playlistId], references: [id])
   playlistId String
 }
