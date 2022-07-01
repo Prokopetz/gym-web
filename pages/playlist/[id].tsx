@@ -95,7 +95,7 @@ const Playlist = () => {
                   setIsEditTitle(false);
                 }
               }}
-            ></input>
+            />
           </div>
         </div>
 
