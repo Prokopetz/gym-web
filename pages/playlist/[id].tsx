@@ -78,11 +78,11 @@ const Playlist = () => {
                 />
               </div>
             </div>
-            <h1 className={clsx(isEditTitle ? "hidden" : "block")} onClick={() => setIsEditTitle(true)}>
+            <h1 className={clsx("text-ellipsis overflow-hidden",isEditTitle ? "hidden" : "block")} onClick={() => setIsEditTitle(true)}>
               {playlist?.name}
             </h1>
             <input
-              className={clsx("bg-transparent border-b-2 outline-none", isEditTitle ? "block" : "hidden")}
+              className={clsx("bg-transparent border-b-2 outline-none w-52 lg:w-96", isEditTitle ? "block" : "hidden")}
               value={playlistName}
               onChange={(event) => setPlaylistName(event.target.value)}
               onKeyDown={async (event) => {
@@ -149,7 +149,7 @@ const Playlist = () => {
                 reps: 10,
                 sets: 4,
                 weight: 5,
-                playlistId: "37759a01-ae86-4292-96fd-c0259628d581",
+                playlistId: playlist?.id!,
               })
             }
           >
